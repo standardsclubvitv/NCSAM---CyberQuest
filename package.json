@@ -1,5 +1,5 @@
 {
-  "name": "cyberquest-quiz",
+  "name": "ncsam-cyberquest",
   "version": "1.0.0",
   "description": "CyberQuest Quiz Application for NCSAM event",
   "main": "server.js",
