@@ -25,14 +25,13 @@ const adminAuth = (req, res, next) => {
 };
 
 // MongoDB Connection with Connection Pooling
-mongoose.connect(process.env.MONGODB_URI, {
-    minPoolSize: 10,
-    maxPoolSize: 50,
-    serverSelectionTimeoutMS: 5000,
-    socketTimeoutMS: 45000,
-})
-.then(() => console.log('Connected to MongoDB'))
-.catch(err => console.error('MongoDB connection error:', err));
+mongoose
+    .connect(process.env.MONGODB_URI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    })
+    .then(() => console.log('Connected to MongoDB'))
+    .catch((err) => console.error('MongoDB connection error:', err));
 
 // Schema Definition
 const studentSubmissionSchema = new mongoose.Schema({
@@ -102,7 +101,7 @@ const limiter = rateLimit({
 app.use(limiter);
 
 // Static files
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // View engine setup
 app.set('view engine', 'ejs');
@@ -226,7 +225,7 @@ app.use((err, req, res, next) => {
     res.status(500).json({ error: 'Something went wrong!' });
 });
 
-// Add trust proxy setting to handle X-Forwarded-For header
+// Set trust proxy for Vercel
 app.set('trust proxy', 1);
 
 // Start server
