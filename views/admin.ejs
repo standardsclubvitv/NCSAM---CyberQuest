@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberQuest Admin - Submissions</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-gold: #FFD700;
+            --secondary-gold: #FDB931;
+            --background: #f5f5f7;
+            --card-bg: #ffffff;
+            --text: #1d1d1f;
+            --accent: #e8e8e8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .header h1 {
+            font-size: 1.75rem;
+            font-weight: 600;
+        }
+
+        .btn-download {
+            background: linear-gradient(135deg, var(--primary-gold), var(--secondary-gold));
+            color: var(--text);
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.2s ease;
+        }
+
+        .btn-download:hover {
+            transform: translateY(-2px);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-card h3 {
+            font-size: 0.875rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card p {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .submissions-table {
+            width: 100%;
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .submissions-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .submissions-table th,
+        .submissions-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--accent);
+        }
+
+        .submissions-table th {
+            background: #f8f8f8;
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: #666;
+        }
+
+        .submissions-table tr:hover {
+            background: #f5f5f5;
+        }
+
+        .score {
+            font-weight: 600;
+        }
+
+        .high-score {
+            color: #34c759;
+        }
+
+        .low-score {
+            color: #ff3b30;
+        }
+
+        .medium-score {
+            color: #ff9500;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+
+            .submissions-table {
+                overflow-x: auto;
+            }
+
+            .stat-card {
+                padding: 1rem;
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --background: #1a1a1f;
+                --card-bg: #2a2a2f;
+                --text: #ffffff;
+                --accent: #3a3a3f;
+            }
+
+            .submissions-table th {
+                background: #222226;
+            }
+
+            .submissions-table tr:hover {
+                background: #333338;
+            }
+
+            .stat-card h3 {
+                color: #999;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>CyberQuest Submissions</h1>
+            <a href="/admin/download-csv" class="btn-download">Download CSV</a>
+        </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <h3>Total Submissions</h3>
+                <p><%= totalSubmissions %></p>
+            </div>
+            <div class="stat-card">
+                <h3>Average Score</h3>
+                <p><%= averageScore.toFixed(2) %></p>
+            </div>
+            <div class="stat-card">
+                <h3>Highest Score</h3>
+                <p><%= highestScore %></p>
+            </div>
+        </div>
+
+        <div class="submissions-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Registration No</th>
+                        <th>Email</th>
+                        <th>Score</th>
+                        <th>Time Taken</th>
+                        <th>Submitted At</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% submissions.forEach(function(submission) { %>
+                        <tr>
+                            <td><%= submission.name %></td>
+                            <td><%= submission.regNo %></td>
+                            <td><%= submission.email %></td>
+                            <td class="score <%= submission.score >= 25 ? 'high-score' : submission.score >= 15 ? 'medium-score' : 'low-score' %>">
+                                <%= submission.score %>/30
+                            </td>
+                            <td><%= Math.floor(submission.timeTaken / 60) %>m <%= submission.timeTaken % 60 %>s</td>
+                            <td><%= new Date(submission.submittedAt).toLocaleString() %></td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

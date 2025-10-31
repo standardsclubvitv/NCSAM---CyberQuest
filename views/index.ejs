@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>CyberQuest - NCSAM Quiz Event</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Hero Section -->
+        <header class="hero">
+            <img src="/assets/logo.png" alt="Standards Club Logo" class="logo">
+            <h1>NCSAM - CyberQuest</h1>
+            <div class="event-details">
+                <p>October 31, 2025 | 2PM-6PM</p>
+                <p>Venue: CDMM304</p>
+            </div>
+        </header>
+
+        <!-- Landing Section -->
+        <section id="landing" class="landing-section">
+            <div class="info-grid">
+                <div class="info-card">
+                    <img src="/assets/logos/bis-logo.svg" alt="BIS Logo" class="bis-logo">
+                    <h2>BIS Standards in Cybersecurity</h2>
+                    <p>The Bureau of Indian Standards (BIS) plays a crucial role in establishing cybersecurity standards that protect India's digital infrastructure. Key standards include IS/ISO/IEC 27001 for Information Security Management and IS/ISO/IEC 27701 for Privacy Information Management.</p>
+                    <a href="https://www.bis.gov.in/technical-department/electronics-and-information-technology/" target="_blank" rel="noopener noreferrer" class="learn-more">Learn More About BIS Standards →</a>
+                </div>
+
+                <div class="info-card featured">
+                    <img src="/assets/logos/cert-in-logo.svg" alt="CERT-In Logo" class="cert-logo">
+                    <h2>National Cyber Security</h2>
+                    <p>CERT-In (Indian Computer Emergency Response Team) works alongside BIS to strengthen India's cybersecurity posture. They provide guidelines, handle incidents, and issue alerts to protect our digital assets.</p>
+                    <div class="key-points">
+                        <div class="point">
+                            <span class="highlight">72 Hours</span>
+                            <p>Mandatory incident reporting timeframe</p>
+                        </div>
+                        <div class="point">
+                            <span class="highlight">IS/ISO/IEC 27001</span>
+                            <p>Primary security standard</p>
+                        </div>
+                        <div class="point">
+                            <span class="highlight">24/7</span>
+                            <p>Security monitoring</p>
+                        </div>
+                    </div>
+                    <a href="https://www.cert-in.org.in/" target="_blank" rel="noopener noreferrer" class="learn-more">Visit CERT-In Website →</a>
+                </div>
+
+                <div class="info-card">
+                    <img src="/assets/logos/nist-logo.svg" alt="NIST Logo" class="nist-logo">
+                    <h2>Global Standards Alignment</h2>
+                    <p>Indian cybersecurity standards align with global frameworks like NIST and ISO/IEC, ensuring international compatibility while addressing local needs.</p>
+                    <a href="https://www.nist.gov/cybersecurity" target="_blank" rel="noopener noreferrer" class="learn-more">Explore NIST Framework →</a>
+                </div>
+            </div>
+            
+            <div class="cyber-stats">
+                <div class="stat">
+                    <span class="stat-number">72+</span>
+                    <span class="stat-label">Hours Response Time</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">27001</span>
+                    <span class="stat-label">ISO/IEC Standard</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">24/7</span>
+                    <span class="stat-label">Monitoring</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Registration Form -->
+        <section id="registration" class="section">
+            <h2>Registration</h2>
+            <form id="registrationForm" class="glass-card">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required minlength="2">
+                    <span class="error-message"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="regNo">Registration Number</label>
+                    <input type="text" id="regNo" name="regNo" required pattern="^[0-9]{2}[A-Z]{3}[0-9]{4}$" placeholder="22BCE1234">
+                    <span class="error-message"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">VIT Email</label>
+                    <input type="email" id="email" name="email" required pattern=".*@vitstudent\.ac\.in$" placeholder="example@vitstudent.ac.in">
+                    <span class="error-message"></span>
+                </div>
+
+                <button type="submit" class="btn-primary">Start Quiz</button>
+            </form>
+        </section>
+
+        <!-- Quiz Section -->
+        <section id="quiz" class="section hidden">
+            <div class="quiz-header">
+                <div class="timer glass-card">
+                    Time Left: <span id="timeLeft">30:00</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress" id="quizProgress"></div>
+                </div>
+            </div>
+
+            <div class="question-container glass-card">
+                <h3 id="questionText"></h3>
+                <div class="options" id="optionsContainer"></div>
+            </div>
+
+            <div class="navigation-buttons">
+                <button id="prevBtn" class="btn-secondary">Previous</button>
+                <button id="nextBtn" class="btn-primary">Next</button>
+            </div>
+        </section>
+
+        <!-- Thank You Section -->
+        <section id="thanks" class="section hidden">
+            <div class="thanks-container glass-card">
+                <h2>Thank You for Participating!</h2>
+                <div class="thanks-content">
+                    <p>Your responses have been successfully submitted.</p>
+                    <p>We appreciate your participation in the NCSAM CyberQuest Quiz.</p>
+                    <div class="club-info">
+                        <p>Follow Standards Club for more events:</p>
+                        <div class="social-links">
+                            <a href="https://www.instagram.com/standardsclubvit/?hl=en" target="_blank" rel="noopener noreferrer" class="btn-secondary">Instagram</a>
+                            <a href="https://www.linkedin.com/in/standards-club-vit-b512a829a/" target="_blank" rel="noopener noreferrer" class="btn-secondary">LinkedIn</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="/script.js"></script>
+</body>
+</html>
