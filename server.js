@@ -226,6 +226,9 @@ app.use((err, req, res, next) => {
     res.status(500).json({ error: 'Something went wrong!' });
 });
 
+// Add trust proxy setting to handle X-Forwarded-For header
+app.set('trust proxy', 1);
+
 // Start server
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
